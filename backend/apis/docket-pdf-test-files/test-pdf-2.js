@@ -1,4 +1,4 @@
-exports.stateCollection = `
+exports.file = `
                         3RD DISTRICT COURT - SALT LAKE
                        SALT LAKE COUNTY, STATE OF UTAH
  

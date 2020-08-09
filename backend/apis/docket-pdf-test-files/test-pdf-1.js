@@ -1,4 +1,4 @@
-exports.accountSummary = `                          CITY JUSTICE COURT
+exports.file = `                          CITY JUSTICE COURT
                        SALT LAKE COUNTY, STATE OF UTAH
  
                     CITY CITY vs. DEFENDANT NAME
