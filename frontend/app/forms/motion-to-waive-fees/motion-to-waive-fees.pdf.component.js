@@ -2,6 +2,7 @@ import React from "react";
 import RenderPage from "../render-page.component.js";
 import PositionedString from "../pdf-rendering/positioned-string.component.js";
 import PositionedCheckmark from "../pdf-rendering/positioned-checkmark.component.js";
+import { DataContainerContext } from "../data-container.component.js";
 import {
   getJudicialDistrict,
   getCounty
@@ -435,6 +436,11 @@ export default function MotionToWaiveFees_Pdf({ data, renderData }) {
           dataKey="person.income.annuityIncome"
           left="76%"
           top="77.9%"
+        />
+        <PositionedString
+          dataKey="person.income.total"
+          left="76%"
+          top="84.6%"
         />
       </RenderPage>
       <RenderPage url="/static/forms/motion-to-waive-fees/Motion_to_Waive_Fees_and_Statement_Supporting-04.png">

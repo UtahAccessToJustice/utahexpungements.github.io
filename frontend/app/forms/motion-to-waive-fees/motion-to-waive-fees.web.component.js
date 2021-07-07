@@ -13,6 +13,8 @@ import {
   courtTypeOptions
 } from "../form-common-options/form-common-options.js";
 import TextInputGroup from "../inputs/text-input-group.component.js";
+import { DataContainerContext } from "../data-container.component.js";
+import useDeepCompareEffect from "../../../hooks/useDeepCompareEffect.js";
 
 const waiveFeeRelationship = [
   { value: "plaintiffPetitioner", label: "plaintiff / Petitioner" },
@@ -87,6 +89,37 @@ const bankOrCredit = [
   "NamesOnAccount",
   "CurrentBalance"
 ];
+
+function DisplayTotal({ amounts, dataKey }) {
+  const dataContext = React.useContext(DataContainerContext);
+  let [total, setTotal] = React.useState(0);
+
+  useDeepCompareEffect(() => {
+    if (amounts) {
+      setTotal(sumObjectValues(amounts));
+    }
+  }, [amounts]);
+
+  return <div className="web-form-input">Total: {total}</div>;
+}
+
+function sumObjectValues(values) {
+  if (!values) {
+    return 0;
+  }
+  const params = Object.keys(values);
+  if (params.length == 0) {
+    return 0;
+  } else {
+    const copyValues = Object.assign({}, values);
+    const firstKey = params[0];
+    const value = isNaN(parseInt(values[firstKey]))
+      ? 0
+      : parseInt(values[firstKey]);
+    delete copyValues[firstKey];
+    return value + sumObjectValues(copyValues);
+  }
+}
 
 export default function MotionToWaiveFees_Web({ data }) {
   return (
@@ -413,7 +446,10 @@ export default function MotionToWaiveFees_Web({ data }) {
             />
           </>
         )}
-        <div className="web-form-input">Total:</div>
+        <DisplayTotal
+          amounts={data.person.income}
+          dataKey="person.income.total"
+        />
         <CheckBox
           label="I have no income because:"
           dataKey="person.noGrossMonthlyIncome"
